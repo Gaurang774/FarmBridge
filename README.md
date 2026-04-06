@@ -1,50 +1,115 @@
-# Welcome to your Expo app 👋
+# 🌾 FarmBridge
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+FarmBridge is a comprehensive agricultural platform that directly connects farmers with buyers, bypassing middlemen to ensure fair pricing and transparent transactions. The platform provides real-time market data, AI-driven crop suggestions, and full harvest traceability.
 
-## Get started
+## 🌟 Key Features
 
-1. Install dependencies
+*   **👨‍🌾 Farmer Dashboard:** Manage listings, view market trends, and receive AI-driven suggestions for crop pricing and timing.
+*   **🛒 Buyer Dashboard:** Browse fresh produce listings, place orders, and track deliveries.
+*   **📈 Market Intelligence:** Live market prices for various crops and analytics.
+*   **🔍 Traceability:** QR-code based traceability timeline to see exactly where and when a crop was harvested.
+*   **📱 Cross-Platform UI:** Built with React Native and Expo, running smoothly on iOS, Android, and Web.
 
-   ```bash
-   npm install
-   ```
+---
 
-2. Start the app
+## 🛠️ Tech Stack
 
-   ```bash
-   npx expo start
-   ```
+**Frontend (Mobile & Web)**
+*   React Native / Expo
+*   React Navigation (Bottom Tabs & Stack)
+*   React Native Paper (Material Design UI components)
 
-In the output, you'll find options to open the app in a
+**Backend (REST API)**
+*   Node.js & Express
+*   MongoDB (Mongoose ODM)
+*   Cors & Dotenv
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 📂 Project Structure
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+FarmBridge/
+├── App.js                   # Application Entry Point & Providers
+├── src/
+│   ├── components/          # Reusable UI components (QRCard, TraceabilityTimeline, etc.)
+│   ├── context/             # React Context for global state (Auth/User)
+│   ├── navigation/          # React Navigation setup (AppNavigator, BuyerTabs, FarmerTabs)
+│   ├── screens/             # App screens organized by user role
+│   │   ├── buyer/           # Buyer Dashboard, Order Tracking, etc.
+│   │   ├── farmer/          # Farmer Dashboard, Market Price, Add Listing, etc.
+│   │   └── shared/          # Login screen, Profile screen
+│   ├── services/            # API config and fetch wrappers (api.js)
+│   └── theme/               # Global styling and paper theme
+└── backend/
+    ├── config/              # Database connection setup
+    ├── models/              # Mongoose Schemas (Listing, Order, User)
+    ├── routes/              # Express API Routes
+    ├── seed.js              # Script to populate initial database data
+    ├── server.js            # Express server entry point
+    └── .env                 # Environment variables (MongoDB URI, Port)
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+---
 
-## Learn more
+## 🚀 Getting Started
 
-To learn more about developing your project with Expo, look at the following resources:
+Follow these steps to run FarmBridge on your local machine.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 1. Requirements
+*   Node.js (v18+ recommended)
+*   MongoDB (Running locally or via Docker/Atlas)
+*   Expo CLI / Expo Go app on your phone (for mobile testing)
 
-## Join the community
+### 2. Setup the Backend
 
-Join our community of developers creating universal apps.
+Open a terminal and start the backend Express server:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+# Navigate to the backend directory
+cd backend
+
+# Install dependencies (if not done already)
+npm install
+
+# Check your .env file in the backend folder (Make sure MongoDB is running)
+# Ensure MONGODB_URI points to your running MongoDB instance
+# Example: MONGODB_URI=mongodb://127.0.0.1:32768/farmbridge?directConnection=true
+
+# (Optional) Seed the database with sample data
+npm run seed
+
+# Start the dev server
+npm run dev
+```
+The backend API will run on `http://0.0.0.0:5000`.
+
+### 3. Setup the Frontend
+
+Open a **new** terminal window and configure the UI wrapper to connect to your backend:
+
+1.  **Important:** Find your machine's local LAN IP address (e.g., `192.168.1.x` or `10.x.x.x`).
+2.  Open `src/services/api.js` and ensure the fallback IP matches your Current LAN IP.
+    ```javascript
+    // In src/services/api.js
+    return 'http://YOUR_LAN_IP:5000/api'; 
+    ```
+
+3.  Start the Expo development server:
+
+```bash
+# From the project root
+npm install
+
+# Start Expo
+npx expo start
+```
+
+### 4. Running the App
+*   **Web:** Press `w` in the terminal to open the app in your browser.
+*   **Mobile:** Scan the generated QR code using the **Expo Go** app on your Android or iOS device (ensure your phone is on the same Wi-Fi network as your computer).
+
+---
+
+## 🤝 Contributing
+Feel free to submit issues, fork the repository, and send pull requests!
