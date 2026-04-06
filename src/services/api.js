@@ -20,11 +20,13 @@ const getBaseUrl = () => {
   // On mobile, extract the dev machine IP from the Expo debugger host
   const debuggerHost = Constants.expoConfig?.hostUri || Constants.manifest?.debuggerHost || '';
   const hostIP = debuggerHost.split(':')[0];
-  if (hostIP) {
+
+  // If it's a tunnel (contains "exp.direct"), don't use it for the backend
+  if (hostIP && !hostIP.includes('exp.direct')) {
     return `http://${hostIP}:5000/api`;
   }
   // Fallback to LAN IP
-  return 'http://192.168.1.12:5000/api';
+  return 'http://10.118.221.168:5000/api';
 };
 
 const BASE_URL = getBaseUrl();
